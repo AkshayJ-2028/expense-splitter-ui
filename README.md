@@ -1,16 +1,20 @@
-# React + Vite
+# Expense Splitter (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React frontend for the Expense Splitter app: groups, shared expenses, balances, settle up, and an AI sentence box that fills in the expense form.
 
-Currently, two official plugins are available:
+**Live app:** https://expense-splitter-ui-three.vercel.app
+**Backend repo:** https://github.com/AkshayJ-2028/Expense-Splitter
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> The backend runs on a free plan and sleeps when idle, so the first request can take up to a minute.
 
-## React Compiler
+## Features
+- Register and log in
+- Create groups and add members
+- Add expenses with equal, percent or exact splits, and choose who shares each expense
+- Type a sentence like "Dinner 1200 paid by me, split with Rahul" and the form fills itself (you review before saving)
+- See balances and the shortest list of payments to settle up
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech stack
+React, Vite, React Router, Axios, deployed on Vercel
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Run locally
