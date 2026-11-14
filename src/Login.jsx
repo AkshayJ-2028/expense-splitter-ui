@@ -27,7 +27,7 @@ export default function Login() {
   }
 
   return (
-    <div style={{ maxWidth: 360,background: "#fff", padding: 24, borderRadius: 12, margin: "80px auto", fontFamily: "sans-serif" }}>
+    <div style={{ maxWidth: 360, background: "#fff", padding: 24, borderRadius: 12, margin: "80px auto", fontFamily: "sans-serif" }}>
       <h2>{isRegister ? "Create account" : "Log in"}</h2>
       <form onSubmit={submit} style={{ display: "grid", gap: 10 }}>
         {isRegister && (
@@ -39,7 +39,11 @@ export default function Login() {
       </form>
       {error && <p style={{ color: "crimson" }}>{error}</p>}
       <p>
-        <button type="button" onClick={() => setIsRegister(!isRegister)} style={{ background: "none", border: "none", color: "4f46e5", cursor: "pointer" }}>
+        <button
+          type="button"
+          onClick={() => setIsRegister(!isRegister)}
+          style={{ background: "none", border: "none", color: "#4f46e5", cursor: "pointer", padding: 0 }}
+        >
           {isRegister ? "Already have an account? Log in" : "New here? Create an account"}
         </button>
       </p>
