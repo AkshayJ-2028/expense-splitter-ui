@@ -10,6 +10,8 @@ export default function GroupDetail() {
   const [expenses, setExpenses] = useState([]);
   const [balances, setBalances] = useState(null);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
+  const [memberEmail, setMemberEmail] = useState("");
 
   async function load() {
     try {
@@ -32,6 +34,7 @@ export default function GroupDetail() {
   }, [id]);
 
   async function settle(s) {
+    setNotice("");
     try {
       await api.post(`/groups/${id}/payments`, {
         toUserId: s.toUserId,
@@ -39,7 +42,35 @@ export default function GroupDetail() {
       });
       load();
     } catch (err) {
-      setError("Could not record the payment.");
+      setNotice("Could not record the payment.");
+    }
+  }
+
+  async function addMember(e) {
+    e.preventDefault();
+    setNotice("");
+    try {
+      await api.post(`/groups/${id}/members`, { email: memberEmail });
+      setMemberEmail("");
+      load();
+    } catch (err) {
+      const status = err.response?.status;
+      if (status === 404) setNotice("No user with that email. Ask them to register first.");
+      else if (status === 409) setNotice("That person is already in the group.");
+      else if (status === 403) setNotice("Only the group creator can add members.");
+      else setNotice("Could not add the member.");
+    }
+  }
+
+  async function deleteExpense(x) {
+    if (!window.confirm(`Delete "${x.description}"?`)) return;
+    setNotice("");
+    try {
+      await api.delete(`/groups/${id}/expenses/${x.id}`);
+      load();
+    } catch (err) {
+      if (err.response?.status === 403) setNotice("Only the payer or the group creator can delete this expense.");
+      else setNotice("Could not delete the expense.");
     }
   }
 
@@ -54,6 +85,20 @@ export default function GroupDetail() {
       <button onClick={() => navigate("/groups")}>Back</button>
       <h2>{group.name}</h2>
       <p style={{ opacity: 0.7 }}>{group.members.map((m) => m.name).join(", ")}</p>
+
+      {notice && <p style={{ color: "crimson" }}>{notice}</p>}
+
+      <form onSubmit={addMember} style={{ display: "flex", gap: 8, margin: "12px 0" }}>
+        <input
+          style={{ flex: 1 }}
+          type="email"
+          placeholder="Add a member by email"
+          value={memberEmail}
+          onChange={(e) => setMemberEmail(e.target.value)}
+          required
+        />
+        <button type="submit">Add member</button>
+      </form>
 
       <h3>Balances</h3>
       {balances.balances.map((b) => (
@@ -83,7 +128,12 @@ export default function GroupDetail() {
       {expenses.length === 0 && <p>No expenses yet.</p>}
       {expenses.map((x) => (
         <div key={x.id} style={{ padding: 10, border: "1px solid #888", borderRadius: 8, marginBottom: 8 }}>
-          <strong>{x.description}</strong> ₹{Number(x.amount).toFixed(2)}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <span>
+              <strong>{x.description}</strong> ₹{Number(x.amount).toFixed(2)}
+            </span>
+            <button onClick={() => deleteExpense(x)}>Delete</button>
+          </div>
           <div style={{ fontSize: 13, opacity: 0.7 }}>
             Paid by {x.paidByName} · {x.splitType} · {x.expenseDate}
           </div>
