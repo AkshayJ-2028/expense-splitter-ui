@@ -18,3 +18,5 @@ React frontend for the Expense Splitter app: groups, shared expenses, balances, 
 React, Vite, React Router, Axios, deployed on Vercel
 
 ## Run locally
+By default it talks to `http://localhost:8080`. To use another backend, create a `.env` file with:
+
