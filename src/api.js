@@ -1,7 +1,10 @@
 import axios from "axios";
 
+// Locally this is http://localhost:8080. On Vercel we set VITE_API_URL to the Render backend address.
+const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+
 const api = axios.create({
-  baseURL: "http://localhost:8080/api",
+  baseURL: `${baseUrl}/api`,
 });
 
 // Attach the saved login token to every request
