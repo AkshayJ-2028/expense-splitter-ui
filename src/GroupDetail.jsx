@@ -74,6 +74,18 @@ export default function GroupDetail() {
     }
   }
 
+  async function deleteGroup() {
+    if (!window.confirm(`Delete "${group.name}" and all its expenses and payments? This cannot be undone.`)) return;
+    setNotice("");
+    try {
+      await api.delete(`/groups/${id}`);
+      navigate("/groups");
+    } catch (err) {
+      if (err.response?.status === 403) setNotice("Only the group creator can delete this group.");
+      else setNotice("Could not delete the group.");
+    }
+  }
+
   if (error) return <p style={{ color: "var(--danger)" }}>{error}</p>;
   if (!group || !balances) return <p>Loading...</p>;
 
@@ -148,6 +160,12 @@ export default function GroupDetail() {
           </div>
         </div>
       ))}
+
+      <div style={{ marginTop: 32, paddingTop: 16, borderTop: "1px solid var(--border)" }}>
+        <button onClick={deleteGroup} style={{ background: "var(--danger)" }}>
+          Delete group
+        </button>
+      </div>
     </div>
   );
 }
