@@ -86,7 +86,7 @@ export default function AddExpense({ group, onAdded }) {
 
   return (
     <form onSubmit={submit} style={{ display: "grid", gap: 8, margin: "12px 0" }}>
-      <div style={{ display: "grid", gap: 6, padding: 10, border: "1px dashed #999", borderRadius: 8 }}>
+      <div style={{ display: "grid", gap: 6, padding: 10, border: "1px dashed var(--border-strong)", borderRadius: 8 }}>
         <strong>✨ Describe it in a sentence</strong>
         <div style={{ display: "flex", gap: 6 }}>
           <input
@@ -119,7 +119,7 @@ export default function AddExpense({ group, onAdded }) {
           ))}
         </select>
       </label>
-      <fieldset style={{ border: "1px solid #ccc", borderRadius: 6 }}>
+      <fieldset style={{ border: "1px solid var(--border)", borderRadius: 6 }}>
         <legend>Split between</legend>
         {group.members.map((m) => (
           <label key={m.userId} style={{ marginRight: 12 }}>
@@ -145,7 +145,7 @@ export default function AddExpense({ group, onAdded }) {
             </label>
           ))}
       <button type="submit">Add expense</button>
-      {error && <p style={{ color: "crimson" }}>{error}</p>}
+      {error && <p style={{ color: "var(--danger)" }}>{error}</p>}
     </form>
   );
 }

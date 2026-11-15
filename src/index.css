@@ -1,7 +1,37 @@
 :root {
+  --bg: #f3f4f6;
+  --card: #ffffff;
+  --text: #1f2937;
+  --heading: #111827;
+  --border: #d1d5db;
+  --border-strong: #9ca3af;
+  --input-bg: #ffffff;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --link: #4f46e5;
+  --danger: #dc2626;
+  --success: #15803d;
+  color-scheme: light;
+
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  color: #1f2937;
-  background: #f3f4f6;
+  color: var(--text);
+  background: var(--bg);
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #e5e7eb;
+  --heading: #f9fafb;
+  --border: #334155;
+  --border-strong: #64748b;
+  --input-bg: #0f172a;
+  --primary: #4f46e5;
+  --primary-hover: #6366f1;
+  --link: #a5b4fc;
+  --danger: #f87171;
+  --success: #4ade80;
+  color-scheme: dark;
 }
 
 body {
@@ -9,7 +39,8 @@ body {
   display: block;
   place-items: initial;
   min-width: 320px;
-  background: #f3f4f6;
+  background: var(--bg);
+  color: var(--text);
 }
 
 #root {
@@ -22,33 +53,59 @@ body {
 }
 
 h2, h3 {
-  color: #111827;
+  color: var(--heading);
   margin-bottom: 8px;
 }
 
 input, select {
   padding: 9px 10px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 15px;
-  background: #ffffff;
-  color: #111827;
+  background: var(--input-bg);
+  color: var(--heading);
+}
+
+input::placeholder {
+  color: #9ca3af;
 }
 
 button {
   padding: 9px 14px;
   border: none;
   border-radius: 8px;
-  background: #4f46e5;
+  background: var(--primary);
   color: #ffffff;
   font-size: 14px;
   cursor: pointer;
 }
 
 button:hover {
-  background: #4338ca;
+  background: var(--primary-hover);
+}
+
+button:disabled {
+  opacity: 0.7;
 }
 
 ul {
   margin: 0;
+}
+
+/* Light / dark switch, fixed in the bottom-right corner on every screen */
+.theme-toggle {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 10;
+  padding: 8px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.theme-toggle:hover {
+  background: var(--border);
 }

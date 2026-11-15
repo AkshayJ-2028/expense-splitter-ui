@@ -60,7 +60,7 @@ export default function Groups() {
         />
         <button type="submit">Create</button>
       </form>
-      {error && <p style={{ color: "crimson" }}>{error}</p>}
+      {error && <p style={{ color: "var(--danger)" }}>{error}</p>}
 
       <h3>Your groups</h3>
       {groups.length === 0 && <p>No groups yet. Create one above.</p>}
@@ -69,7 +69,14 @@ export default function Groups() {
           <li
             key={g.id}
             onClick={() => navigate(`/groups/${g.id}`)}
-            style={{ padding: 12, border: "1px solid #888", borderRadius: 8, marginBottom: 8, cursor: "pointer" }}
+            style={{
+              padding: 12,
+              border: "1px solid var(--border-strong)",
+              background: "var(--card)",
+              borderRadius: 8,
+              marginBottom: 8,
+              cursor: "pointer",
+            }}
           >
             <strong>{g.name}</strong>
             <div style={{ fontSize: 13, opacity: 0.7 }}>

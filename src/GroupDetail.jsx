@@ -74,7 +74,7 @@ export default function GroupDetail() {
     }
   }
 
-  if (error) return <p style={{ color: "crimson" }}>{error}</p>;
+  if (error) return <p style={{ color: "var(--danger)" }}>{error}</p>;
   if (!group || !balances) return <p>Loading...</p>;
 
   const myEmail = localStorage.getItem("userEmail");
@@ -86,7 +86,7 @@ export default function GroupDetail() {
       <h2>{group.name}</h2>
       <p style={{ opacity: 0.7 }}>{group.members.map((m) => m.name).join(", ")}</p>
 
-      {notice && <p style={{ color: "crimson" }}>{notice}</p>}
+      {notice && <p style={{ color: "var(--danger)" }}>{notice}</p>}
 
       <form onSubmit={addMember} style={{ display: "flex", gap: 8, margin: "12px 0" }}>
         <input
@@ -104,7 +104,7 @@ export default function GroupDetail() {
       {balances.balances.map((b) => (
         <div key={b.userId}>
           {b.name}:{" "}
-          <strong style={{ color: Number(b.net) >= 0 ? "seagreen" : "crimson" }}>
+          <strong style={{ color: Number(b.net) >= 0 ? "var(--success)" : "var(--danger)" }}>
             {Number(b.net) >= 0 ? "is owed" : "owes"} ₹{Math.abs(Number(b.net)).toFixed(2)}
           </strong>
         </div>
@@ -127,7 +127,16 @@ export default function GroupDetail() {
       <h3>Expenses</h3>
       {expenses.length === 0 && <p>No expenses yet.</p>}
       {expenses.map((x) => (
-        <div key={x.id} style={{ padding: 10, border: "1px solid #888", borderRadius: 8, marginBottom: 8 }}>
+        <div
+          key={x.id}
+          style={{
+            padding: 10,
+            border: "1px solid var(--border-strong)",
+            background: "var(--card)",
+            borderRadius: 8,
+            marginBottom: 8,
+          }}
+        >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span>
               <strong>{x.description}</strong> ₹{Number(x.amount).toFixed(2)}

@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login";
 import Groups from "./Groups";
 import GroupDetail from "./GroupDetail";
+import ThemeToggle from "./ThemeToggle";
 
 function isLoggedIn() {
   return !!localStorage.getItem("token");
@@ -34,6 +35,7 @@ export default function App() {
         />
         <Route path="*" element={<Navigate to="/groups" />} />
       </Routes>
+      <ThemeToggle />
     </BrowserRouter>
   );
 }
